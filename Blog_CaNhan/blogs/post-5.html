@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Đã cập nhật tiêu đề -->
+    <title>Mô Hình Hóa Thế Giới Thực: Khai Thác Sức Mạnh Của OOP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* Toàn bộ CSS từ post-1.html được sao chép vào đây */
+        :root {
+            --primary-color: #f8f9fa;
+            --secondary-color: #ffffff;
+            --accent-color: #0d6efd;
+            --text-color: #212529;
+            --text-secondary: #6c757d;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #tech-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header (KHÔNG THAY ĐỔI) */
+        header {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--accent-color);
+        }
+        
+        /* CSS cho trang bài viết chi tiết (GIỐNG HỆT POST-1) */
+        .post-page-container {
+            max-width: 800px; /* Giới hạn chiều rộng nội dung bài viết */
+            margin: 0 auto;
+            padding: 150px 20px 100px 20px; /* Padding trên cùng để né header */
+            background-color: var(--secondary-color);
+            min-height: 100vh;
+        }
+        
+        .post-page-title {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .post-page-content .post-meta {
+            display: flex;
+            flex-wrap: wrap; /* Thêm cho responsive */
+            gap: 10px 20px; /* Thêm gap */
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .post-page-content .post-date,
+        .post-page-content .post-author { /* Thêm post-author */
+            color: var(--text-secondary);
+        }
+        
+        .post-page-content .post-category {
+            background: rgba(13, 110, 253, 0.1);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        
+        .post-page-content .post-full-content {
+            color: var(--text-color); /* Chữ nội dung rõ hơn */
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .post-page-content .post-full-content h2, 
+        .post-page-content .post-full-content h3 {
+             color: var(--text-color); 
+             margin: 40px 0 15px;
+        }
+
+        .post-page-content .post-full-content h2 {
+             font-size: 2rem;
+             border-bottom: 2px solid var(--border-color);
+             padding-bottom: 10px;
+        }
+
+         .post-page-content .post-full-content h3 {
+             font-size: 1.5rem;
+         }
+        
+        .post-page-content .post-full-content p {
+            margin-bottom: 20px;
+            color: var(--text-secondary); /* Chỉnh lại màu p */
+        }
+        
+        .post-page-content .post-full-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+            background-color: #eee; /* Nền cho ảnh placeholder */
+        }
+        
+        .post-page-content .post-full-content pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            margin: 20px 0;
+        }
+        .post-page-content .post-full-content code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .post-page-content .post-full-content blockquote {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        .post-page-content .post-full-content ul, 
+        .post-page-content .post-full-content ol { /* Thêm ol */
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 0 20px;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--primary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="tech-background"></canvas>
+    <!-- Header (KHÔNG THAY ĐỔI) -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="../index.html" class="logo">My IT Journey Blog</a>
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Trang Chủ</a></li>
+                        <li><a href="../index.html#blog" class="active">Bài Viết</a></li>
+                        <li><a href="../about.html">Về Tôi</a></li>
+                        <li><a href="../index.html#contact">Liên Hệ</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu">☰</div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+         <!-- Nội dung bài viết chi tiết -->
+        <div class="post-page-container">
+            <!-- === BẮT ĐẦU NỘI DUNG THAY THẾ CHO POST 5 === -->
+            
+            <h1 class="post-page-title">Mô Hình Hóa Thế Giới Thực: Khai Thác Sức Mạnh Của Lập Trình Hướng Đối Tượng (OOP)</h1>
+            
+            <div class="post-page-content">
+                <div class="post-meta">
+                    <span class="post-date"><i class="fas fa-calendar-alt"></i> Ngày đăng: 02/11/2025</span>
+                    
+                    <span class="post-category">Học thuật</span>
+                </div>
+                
+                <div class="post-full-content">
+                    <p>Lập trình hướng đối tượng (OOP) là một mô hình (paradigm) lập trình không chỉ giúp chúng ta viết code, mà còn giúp chúng ta cấu trúc suy nghĩ. Thay vì một loạt các hàm thủ tục (procedural functions) rời rạc, OOP cho phép chúng ta mô hình hóa các thực thể trong thế giới thực thành các "đối tượng" (Objects) có thuộc tính (properties/attributes) và hành vi (methods/behaviors).</p>
+
+                    <h2>Bốn Trụ Cột Của OOP</h2>
+                    <p>OOP đứng vững trên 4 nguyên lý cơ bản. Hiểu rõ chúng là chìa khóa để viết code có tổ chức, dễ bảo trì và mở rộng, đặc biệt trong các hệ thống lớn.</p>
+                    
+                    <img src="../images/post/unnamed 4.jpg" alt="Biểu đồ UML thể hiện Kế thừa và Đa hình">
+
+                    <h3>1. Tính Đóng Gói (Encapsulation)</h3>
+                    <p>Đây là nguyên tắc "che giấu thông tin" (information hiding). Mỗi đối tượng tự quản lý trạng thái (state) nội tại của nó và chỉ "phơi bày" ra ngoài những gì cần thiết thông qua các phương thức công khai (public methods - getters/setters). Các thuộc tính nội bộ thường được đánh dấu là <code>private</code> hoặc <code>protected</code>. Điều này bảo vệ dữ liệu khỏi bị thay đổi ngoài ý muốn và giảm sự phụ thuộc lẫn nhau giữa các phần của code, giúp dễ dàng thay đổi logic bên trong mà không ảnh hưởng bên ngoài.</p>
+
+                    <h3>2. Tính Kế Thừa (Inheritance)</h3>
+                    <p>Cho phép một lớp (class) mới (lớp con - subclass/derived class) thừa hưởng các thuộc tính và phương thức từ một lớp hiện có (lớp cha - superclass/base class). Điều này thúc đẩy việc tái sử dụng code (code reusability) và tạo ra một hệ thống phân cấp logic ("is-a" relationship). Ví dụ, lớp <code>Dog</code> và <code>Cat</code> có thể cùng kế thừa từ lớp <code>Animal</code> (đều có <code>name</code> và phương thức <code>eat()</code>).</p>
+
+                    <h3>3. Tính Đa Hình (Polymorphism)</h3>
+                    <p>Nghĩa đen là "nhiều hình dạng". Nó cho phép các đối tượng thuộc các lớp khác nhau (nhưng có chung lớp cha hoặc interface) phản ứng khác nhau với cùng một lời gọi phương thức. Ví dụ, cả <code>Dog</code> và <code>Cat</code> đều có phương thức <code>speak()</code>, nhưng khi gọi, đối tượng <code>Dog</code> sẽ "gâu gâu" và đối tượng <code>Cat</code> sẽ "meo meo". Điều này giúp viết code linh hoạt hơn, dễ dàng thêm các loại đối tượng mới mà không cần sửa đổi nhiều code hiện có.</p>
+
+                    <h3>4. Tính Trừu Tượng (Abstraction)</h3>
+                    <p>Là quá trình tập trung vào các đặc điểm thiết yếu của một đối tượng và bỏ qua các chi tiết không cần thiết. Chúng ta định nghĩa các lớp trừu tượng (abstract classes) hoặc giao diện (interfaces) để xác định "hợp đồng" chung mà các lớp cụ thể phải tuân theo, nhưng ẩn đi cách thức triển khai (implementation) chi tiết. Khi bạn lái xe, bạn chỉ cần biết dùng vô lăng, chân ga (interface), mà không cần hiểu chi tiết động cơ đốt trong hoạt động thế nào (implementation).</p>
+
+                    <h2>OOP Trong Thực Tiễn (Ví dụ với Java/Python)</h2>
+                    <p>Hãy xem cách các nguyên lý này kết hợp với nhau trong một ví dụ đơn giản:</p>
+                    <pre><code class="language-java">// Java Example
+// Abstraction & Encapsulation
+abstract class Animal {
+    private String name; // Encapsulation: name is private
+
+    public Animal(String name) { this.name = name; }
+    
+    public String getName() { return name; } // Public getter
+
+    // Abstract method - must be implemented by subclasses
+    public abstract void speak(); // Abstraction
+}
+
+// Inheritance & Polymorphism
+class Dog extends Animal { // Inheritance: Dog "is-a" Animal
+    public Dog(String name) { super(name); }
+
+    @Override // Annotation to ensure method overriding
+    public void speak() { // Polymorphism: Dog's specific implementation
+        System.out.println(getName() + " says: Gâu gâu");
+    }
+}
+
+class Cat extends Animal { // Inheritance: Cat "is-a" Animal
+    public Cat(String name) { super(name); }
+
+    @Override
+    public void speak() { // Polymorphism: Cat's specific implementation
+        System.out.println(getName() + " says: Meo meo");
+    }
+}
+
+// --- Usage ---
+public class Main {
+    public static void main(String[] args) {
+        // Polymorphism: treat Dog and Cat objects as Animal type
+        Animal myDog = new Dog("Buddy");
+        Animal myCat = new Cat("Whiskers");
+        
+        // The correct speak() method is called based on the actual object type
+        myDog.speak(); // Output: Buddy says: Gâu gâu
+        myCat.speak(); // Output: Whiskers says: Meo meo
+        
+        // Encapsulation prevents direct access like: myDog.name = "Charlie"; 
+    }
+}
+</code></pre>
+
+                    <h2>Kết Luận</h2>
+                    <p>OOP không phải là lựa chọn duy nhất, và đôi khi lập trình hàm (Functional Programming) lại phù hợp hơn. Tuy nhiên, OOP là một công cụ cực kỳ mạnh mẽ để quản lý sự phức tạp (managing complexity) trong các dự án phần mềm quy mô lớn. Nó giúp code dễ đọc hơn (khi các đối tượng phản ánh thế giới thực), dễ bảo trì hơn (do tính đóng gói), và dễ dàng mở rộng hơn (nhờ kế thừa và đa hình).</p>
+                </div>
+            </div>
+            <!-- === KẾT THÚC NỘI DUNG THAY THẾ CHO POST 5 === -->
+        </div>
+    </main>
+
+    <!-- Footer (KHÔNG THAY ĐỔI) -->
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                &copy; 2025 IT Journey Blog. Được tạo với ❤️ và nhiều ☕
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript (KHÔNG THAY ĐỔI) -->
+    <script>
+        // --- HIỆU ỨNG NỀN MẠCH ĐIỆN TỬ ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('tech-background');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+            const particleCount = (canvas.width * canvas.height) / 20000;
+            const lineColor = 'rgba(13, 110, 253, 0.5)';
+            const particleColor = 'rgba(13, 110, 253, 0.5)';
+
+            function Particle(x, y, vx, vy) { this.x = x; this.y = y; this.vx = vx; this.vy = vy; }
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle(
+                    Math.random() * canvas.width, Math.random() * canvas.height,
+                    (Math.random() - 0.5) * 0.5, (Math.random() - 0.5) * 0.5
+                ));
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    const p1 = particles[i];
+                    p1.x += p1.vx; p1.y += p1.vy;
+                    if (p1.x < 0 || p1.x > canvas.width) p1.vx *= -1;
+                    if (p1.y < 0 || p1.y > canvas.height) p1.vy *= -1;
+                    ctx.beginPath(); ctx.arc(p1.x, p1.y, 2, 0, Math.PI * 2); ctx.fillStyle = particleColor; ctx.fill();
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const p2 = particles[j];
+                        const dx = p1.x - p2.x; const dy = p1.y - p2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = lineColor; ctx.lineWidth = 0.5; ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(draw);
+            }
+            
+            window.addEventListener('resize', () => {
+                 canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+                 particles = [];
+                 const newParticleCount = (canvas.width * canvas.height) / 20000;
+                 for (let i = 0; i < newParticleCount; i++) {
+                    particles.push(new Particle(
+                        Math.random() * canvas.width, Math.random() * canvas.height,
+                        (Math.random() - 0.5) * 0.5, (Math.random() - 0.5) * 0.5
+                    ));
+                }
+            });
+            draw();
+        });
+    </script>
+
+    <script src="../cursor-trail.js"></script>
+</body>
+</html>
+

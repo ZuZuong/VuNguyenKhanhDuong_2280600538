@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hành Trình IT - Từ Con Số 0 Đến Sinh Viên Năm 4</title>
+    <!-- Font Awesome cho icon --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #f8f9fa; /* Nền trắng xám */
+            --secondary-color: #ffffff; /* Nền trắng tinh */
+            --accent-color: #0d6efd; /* Xanh công nghệ */
+            --text-color: #212529; /* Chữ đen */
+            --text-secondary: #6c757d; /* Chữ xám */
+            --card-bg: #ffffff;
+            --border-color: #dee2e6; /* Viền xám nhạt */
+            --cursor-trail-color: rgba(13, 110, 253, 0.5); /* Màu cho vệt sáng */
+            /* === MÀU VIỀN ICON === */
+             --icon-border-1: #0d6efd;
+             --icon-border-2: #198754;
+             --icon-border-3: #ffc107;
+             --icon-border-4: #dc3545;
+             --icon-border-5: #6f42c1;
+            /* === MÀU NỀN MỚI === */
+            --featured-bg-start: #ffffff;
+            --featured-bg-end: #e7f0ff; /* Xanh dương rất nhạt */
+            --contact-bg: #ffffff; /* Trắng tinh */
+            --light-grey-bg: #f0f2f5; /* Xám rất nhạt (dự phòng) */
+            --dot-pattern-color: rgba(13, 110, 253, 0.08); /* Màu chấm bi mờ */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative; /* Cần cho hiệu ứng nền */
+            cursor: auto;
+        }
+
+        /* Hiệu ứng nền mạch điện tử (Canvas) */
+        #tech-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.5;
+        }
+
+        /* CSS cho vệt sáng được quản lý trong cursor-trail.js */
+        body.link-hovered .cursor-trail div {
+           /* Ví dụ: transform: scale(1.1); */
+        }
+
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--accent-color);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+        }
+
+        /* Main Content Sections */
+        .page-section {
+            padding: 100px 0;
+            position: relative; /* Cần cho pseudo-elements */
+            overflow: hidden; /* Ngăn pseudo-elements tràn ra ngoài */
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 150px;
+            text-align: center;
+            background: transparent;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+         .hero::before {
+             content: '';
+             position: absolute;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             background: rgba(255, 255, 255, 0.1);
+             z-index: -1;
+         }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--accent-color), #0dcaf0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .hero-subheading {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .hero-tech-icons {
+             margin-bottom: 30px;
+        }
+         .hero-tech-icons i {
+             font-size: 2rem;
+             color: var(--text-secondary);
+             margin: 0 15px;
+             opacity: 0.7;
+         }
+
+        .cta-button {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+
+        .cta-button:hover {
+            background-color: rgba(13, 110, 253, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .cta-button.primary {
+            background-color: var(--accent-color);
+            color: var(--secondary-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 15px auto;
+        }
+
+        /* ============================ */
+        /* CSS BÀI VIẾT NỔI BẬT ĐẶC BIỆT */
+        /* ============================ */
+        #featured-posts {
+            background: linear-gradient(180deg, var(--featured-bg-start) 0%, var(--featured-bg-end) 100%);
+            border-bottom: 1px solid var(--border-color);
+            background-image: radial-gradient(circle at center, rgba(13, 110, 253, 0.05) 0%, transparent 60%), /* Gradient tỏa tròn mờ */
+                              linear-gradient(180deg, var(--featured-bg-start) 0%, var(--featured-bg-end) 100%); /* Gradient nền chính */
+             background-blend-mode: overlay, normal; /* Trộn 2 background */
+             position: relative; /* Cho z-index */
+             z-index: 0; /* Đảm bảo nội dung nằm trên họa tiết */
+        }
+
+        .featured-post-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            margin-bottom: 50px;
+            position: relative; /* Cho z-index */
+            z-index: 1; /* Nằm trên nền section */
+        }
+
+        .featured-post-card:hover {
+             transform: translateY(-10px);
+             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-post-image {
+            width: 100%;
+            height: 450px;
+            /* === THAY ĐỔI: Chuyển sang background color, bỏ background image URL === */
+            background-color: pink;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Font-size đã chuyển xuống icon */
+            /* Color đã chuyển xuống icon */
+        }
+        /* === THÊM: CSS cho icon trong featured post === */
+        .featured-post-image i {
+            font-size: 7rem; /* To hơn đáng kể */
+            color: var(--secondary-color); /* Chắc chắn màu trắng */
+            text-shadow: 0 3px 6px rgba(0,0,0,0.3); /* Đổ bóng rõ hơn */
+        }
+
+        .featured-post-content {
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .featured-content-wrapper {
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .featured-post-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            line-height: 1.3;
+        }
+
+        .featured-post-content .post-excerpt {
+             margin-bottom: 25px;
+             font-size: 1.1rem;
+             color: var(--text-secondary);
+        }
+
+        .featured-post-content .post-meta {
+            margin-bottom: 15px;
+        }
+
+        /* ============================ */
+        /* CSS BÀI VIẾT THÔNG THƯỜNG */
+        /* ============================ */
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .post-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-color);
+        }
+
+        .post-image {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            background-color: #e9ecef;
+        }
+        .post-image::before {
+             content: '';
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%);
+             width: 120px;
+             height: 120px;
+             border-radius: 50%;
+             border: 4px solid;
+             opacity: 0.3;
+        }
+        .post-image i {
+             z-index: 1;
+             color: var(--secondary-color);
+             text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+
+        /* Gán màu viền và nền khác nhau */
+        .post-card:nth-child(5n+1) .post-image { background-color: var(--icon-border-1); }
+        .post-card:nth-child(5n+1) .post-image::before { border-color: var(--icon-border-1); }
+
+        .post-card:nth-child(5n+2) .post-image { background-color: var(--icon-border-2); }
+        .post-card:nth-child(5n+2) .post-image::before { border-color: var(--icon-border-2); }
+
+        .post-card:nth-child(5n+3) .post-image { background-color: var(--icon-border-3); }
+        .post-card:nth-child(5n+3) .post-image::before { border-color: var(--icon-border-3); }
+
+        .post-card:nth-child(5n+4) .post-image { background-color: var(--icon-border-4); }
+        .post-card:nth-child(5n+4) .post-image::before { border-color: var(--icon-border-4); }
+
+        .post-card:nth-child(5n+5) .post-image { background-color: var(--icon-border-5); }
+        .post-card:nth-child(5n+5) .post-image::before { border-color: var(--icon-border-5); }
+
+
+        .post-content {
+            padding: 25px;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .post-date {
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .post-category {
+            background: rgba(13, 110, 253, 0.1);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .post-title {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 2.8em;
+        }
+
+        .post-excerpt {
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+             min-height: 4.8em;
+        }
+
+        /* Contact Section */
+        #contact {
+             background-color: var(--contact-bg); /* Trắng tinh */
+             border-top: 1px solid var(--border-color); /* Thêm viền trên */
+             position: relative; /* Cho pseudo elements */
+             overflow: hidden; /* Ngăn tràn */
+             z-index: 0;
+             /* === THÊM HỌA TIẾT CHẤM BI === */
+             background-image: radial-gradient(var(--dot-pattern-color) 1px, transparent 1px);
+             background-size: 10px 10px; /* Kích thước và khoảng cách chấm */
+        }
+         /* Bỏ họa tiết góc cũ */
+         #contact::before,
+         #contact::after {
+             display: none;
+         }
+         /* === KẾT THÚC HỌA TIẾT CHẤM BI === */
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative; /* Đảm bảo form nằm trên background */
+            z-index: 1;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 0 20px;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--primary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .mobile-menu { display: block; cursor: pointer;}
+            .hero h1 { font-size: 2.5rem; }
+            .hero-tech-icons i { font-size: 1.5rem; margin: 0 10px; }
+            .posts-grid { grid-template-columns: 1fr; }
+
+            .featured-post-card {
+                grid-template-columns: 1fr;
+            }
+            .featured-post-image {
+                height: 250px;
+                /* Font-size đã chuyển xuống icon */
+            }
+            .featured-post-image i { /* Thu nhỏ icon featured trên mobile */
+                font-size: 5rem;
+            }
+            .featured-post-content {
+                padding: 25px;
+            }
+             .featured-content-wrapper {
+                 max-width: 100%;
+             }
+            .featured-post-title {
+                font-size: 1.75rem;
+            }
+            .post-title, .post-excerpt {
+                min-height: auto;
+            }
+             /* Khôi phục con trỏ mặc định */
+              body { cursor: auto; }
+             a, button, input, textarea, .post-card, .featured-post-card, .logo, .mobile-menu {
+                cursor: pointer;
+             }
+
+        }
+    </style>
+</head>
+<body>
+    <canvas id="tech-background"></canvas>
+    <!-- Vệt sáng sẽ được tạo bởi JS -->
+
+
+    <!-- Header --><header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">My IT Journey Blog</a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="active">Trang Chủ</a></li>
+                        <li><a href="#blog">Bài Viết</a></li>
+                        <li><a href="about.html">Về Tôi</a></li>
+                        <li><a href="#contact">Liên Hệ</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu">☰</div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section --><section class="page-section hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Hành Trình IT Từ Không Thích<br>Trở Thành Sinh Viên Năm 4</h1>
+                    <p>Chia sẻ hành trình học tập, những kiến thức thu được và thử thách đã vượt qua trong suốt quá trình trở thành sinh viên Công Nghệ Thông Tin.</p>
+                    <p class="hero-subheading">Khám phá các chủ đề về JavaScript, React, Node.js, CTDL & GT, và hơn thế nữa.</p>
+                    <div class="hero-tech-icons">
+                         <i class="fab fa-js-square"></i>
+                         <i class="fab fa-react"></i>
+                         <i class="fab fa-node-js"></i>
+                         <i class="fas fa-database"></i>
+                         <i class="fas fa-brain"></i>
+                    </div>
+                    <a href="#blog" class="cta-button primary">Khám Phá Blog</a>
+                    <a href="about.html" class="cta-button">Về Tác Giả</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================== --><!-- BÀI VIẾT NỔI BẬT (TRONG CONTAINER) --><!-- =================================== --><section class="page-section" id="featured-posts">
+            <div class="container">
+                <h2 class="section-title">Bài Viết Nổi Bật</h2>
+                <a href="blogs/post-1.html" class="featured-post-card">
+                    <!-- === THAY ĐỔI: Chèn icon vào đây === -->
+                    <div class="featured-post-image">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <!-- === KẾT THÚC THAY ĐỔI === -->
+                    <div class="featured-post-content">
+                        <div class="featured-content-wrapper">
+                            <div class="post-meta">
+                                <span class="post-date">20/10/2025</span>
+                                <span class="post-category">Khởi đầu</span>
+                            </div>
+                            <h3 class="featured-post-title">Vượt Qua Ngưỡng Cửa Lập Trình: Từ Nghi Ngờ Đến Đam Mê</h3>
+                            <p class="post-excerpt">Phân tích quá trình chuyển đổi tư duy, từ một người hoài nghi trở thành một sinh viên đam mê kỹ thuật phần mềm...</p>
+                            <span class="cta-button">Đọc tiếp bài viết</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <!-- =================================== --><!-- KẾT THÚC PHẦN NỔI BẬT --><!-- =================================== --><!-- Blog Posts Section --><section class="page-section" id="blog">
+            <div class="container">
+                <h2 class="section-title">Tất Cả Bài Viết</h2>
+                <div class="posts-grid" id="postsContainer">
+                    <!-- === CẬP NHẬT ẢNH THÀNH ICON (Giữ nguyên) === -->
+                    
+                     <a href="blogs/post-2.html" class="post-card">
+                         <div class="post-image"><i class="fas fa-laptop-code"></i></div>
+                         <div class="post-content">
+                             <div class="post-meta"><span class="post-date">22/10/2025</span><span class="post-category">Học tập</span></div>
+                             <h3 class="post-title">Phân Tích Cấu Trúc: Thách Thức Khi Tiếp Cận Lập Trình Nền Tảng</h3>
+                             <p class="post-excerpt">Thách thức thực sự không nằm ở cú pháp mà ở tư duy thuật toán và ngữ nghĩa...</p>
+                         </div>
+                     </a>
+                     <a href="blogs/post-3.html" class="post-card">
+                         <div class="post-image"><i class="fas fa-globe-americas"></i></div>
+                         <div class="post-content">
+                             <div class="post-meta"><span class="post-date">25/10/2025</span><span class="post-category">Dự án</span></div>
+                             <h3 class="post-title">Case Study: Xây Dựng Website Cá Nhân & Quản Lý Phạm Vi</h3>
+                             <p class="post-excerpt">Bài học về Minimum Viable Product (MVP) và hiện tượng "scope creep" qua dự án đầu tay...</p>
+                         </div>
+                     </a>
+                      <a href="blogs/post-4.html" class="post-card">
+                          <div class="post-image"><i class="fas fa-project-diagram"></i></div>
+                          <div class="post-content">
+                              <div class="post-meta"><span class="post-date">28/10/2025</span><span class="post-category">Học thuật</span></div>
+                              <h3 class="post-title">Nền Tảng Kỹ Thuật: Tầm Quan Trọng Của CTDL & Giải Thuật</h3>
+                              <p class="post-excerpt">Big O Notation và case study so sánh hiệu năng giữa Array và HashMap...</p>
+                          </div>
+                      </a>
+                     <a href="blogs/post-5.html" class="post-card">
+                         <div class="post-image"><i class="fas fa-cubes"></i></div>
+                         <div class="post-content">
+                             <div class="post-meta"><span class="post-date">02/11/2025</span><span class="post-category">Học thuật</span></div>
+                             <h3 class="post-title">Mô Hình Hóa Thế Giới Thực: Khai Thác Sức Mạnh Của OOP</h3>
+                             <p class="post-excerpt">Phân tích 4 trụ cột: Đóng gói, Kế thừa, Đa hình, Trừu tượng và ví dụ thực tế...</p>
+                         </div>
+                     </a>
+                     <a href="blogs/post-6.html" class="post-card">
+                         <div class="post-image"><i class="fas fa-database"></i></div>
+                         <div class="post-content">
+                             <div class="post-meta"><span class="post-date">05/11/2025</span><span class="post-category">Database</span></div>
+                             <h3 class="post-title">Kiến Trúc Dữ Liệu: SQL & Cơ Sở Dữ Liệu Quan Hệ</h3>
+                             <p class="post-excerpt">Schema Design, Normalization, sức mạnh của JOINs và nguyên tắc ACID...</p>
+                         </div>
+                     </a>
+                     <a href="blogs/post-7.html" class="post-card">
+                         <div class="post-image"><i class="fab fa-git-alt"></i></div>
+                         <div class="post-content">
+                             <div class="post-meta"><span class="post-date">08/11/2025</span><span class="post-category">Công cụ</span></div>
+                             <h3 class="post-title">Làm Việc Cộng Tác Hiệu Quả: Git Dưới Góc Nhìn Quản Lý Dự Án</h3>
+                             <p class="post-excerpt">Branching strategy (Git Flow, GitHub Flow), Pull Requests và giải quyết xung đột...</p>
+                         </div>
+                     </a>
+                     <a href="blogs/post-8.html" class="post-card">
+                         <div class="post-image"><i class="fab fa-js-square"></i></div>
+                         <div class="post-content">
+                             <div class="post-meta"><span class="post-date">10/11/2025</span><span class="post-category">JavaScript</span></div>
+                             <h3 class="post-title">Xử Lý Bất Đồng Bộ Trong JavaScript: Từ Callback Hell Đến Async/Await</h3>
+                             <p class="post-excerpt">Phân tích sự tiến hóa của các mô hình xử lý bất đồng bộ trong JS: Callbacks, Promises, Async/Await...</p>
+                         </div>
+                     </a>
+                     <a href="blogs/post-9.html" class="post-card">
+                         <div class="post-image"><i class="fab fa-react"></i></div>
+                         <div class="post-content">
+                             <div class="post-meta"><span class="post-date">12/11/2025</span><span class="post-category">Framework</span></div>
+                             <h3 class="post-title">Phân Tích ReactJS: Tư Duy Component và Virtual DOM</h3>
+                             <p class="post-excerpt">Kiến trúc Component-based, State vs Props, và cơ chế Reconciliation của Virtual DOM...</p>
+                         </div>
+                     </a>
+                     <a href="blogs/post-10.html" class="post-card">
+                         <div class="post-image"><i class="fas fa-brain"></i></div>
+                         <div class="post-content">
+                             <div class="post-meta"><span class="post-date">15/11/2025</span><span class="post-category">AI/ML</span></div>
+                             <h3 class="post-title">Một Góc Nhìn Tổng Quan: Các Khái Niệm Cốt Lõi Của Học Máy</h3>
+                             <p class="post-excerpt">Supervised, Unsupervised, Reinforcement Learning và quy trình xây dựng mô hình ML cơ bản...</p>
+                         </div>
+                     </a>
+                    <!-- === KẾT THÚC CẬP NHẬT ẢNH === -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Phần "Về Tôi" đã bị xóa khỏi đây --><!-- Contact Section --><section class="page-section" id="contact">
+            <div class="container">
+                <h2 class="section-title">Liên Hệ</h2>
+                <<form class="contact-form" 
+      action="https://formsubmit.co/khanhduong03062004@gmail.com" 
+      method="POST">
+                    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 30px;">
+                        Có câu hỏi hoặc muốn hợp tác? Hãy gửi lời nhắn cho tôi!
+                    </p>
+<form class="contact-form" id="contactForm">
+    <div class="form-group">
+        <label for="name">Họ tên</label>
+        <input type="text" id="name" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+    </div>
+    <div class="form-group">
+        <label for="message">Lời nhắn</label>
+        <textarea id="message" required></textarea>
+    </div>
+    <button type="submit" class="cta-button primary">Gửi tin nhắn</button>
+</form>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer --><footer>
+        <div class="container">
+            <div class="copyright">
+                &copy; 2025 IT Journey Blog. Được tạo với ❤️ và nhiều ☕
+            </div>
+        </div>
+    </footer>
+
+    <!-- === LIÊN KẾT ĐẾN FILE JS MỚI === -->
+    <script src="cursor-trail.js"></script> 
+    
+    <script>
+        // --- JAVASCRIPT GỐC CHO NỀN VÀ MENU ---
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- XỬ LÝ SỰ KIỆN FORM ---
+            const contactForm = document.getElementById('contactForm');
+            if(contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                   
+                    console.log('Form submitted!'); 
+                    alert('Cảm ơn bạn đã liên hệ! Tôi sẽ phản hồi sớm nhất có thể.');
+                    e.target.reset();
+                });
+            }
+
+            // --- HIỆU ỨNG NỀN MẠCH ĐIỆN TỬ ---
+            const canvas = document.getElementById('tech-background');
+            if (canvas && canvas.getContext) { 
+                const ctx = canvas.getContext('2d');
+                let animationFrameId; 
+
+                const initCanvas = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+                initCanvas(); 
+
+                let particles = [];
+                const baseParticleCount = (canvas.width * canvas.height) / 10000; 
+                const lineColor = 'rgba(13, 110, 253, 0.7)'; 
+                const particleColor = 'rgba(13, 110, 253, 0.8)'; 
+
+                function Particle(x, y, vx, vy) {
+                    this.x = x;
+                    this.y = y;
+                    this.vx = vx;
+                    this.vy = vy;
+                    this.radius = Math.random() * 1.5 + 0.5; 
+                }
+
+                function initParticles() {
+                    particles = []; 
+                    const currentParticleCount = Math.floor(baseParticleCount);
+                    for (let i = 0; i < currentParticleCount; i++) {
+                        particles.push(new Particle(
+                            Math.random() * canvas.width,
+                            Math.random() * canvas.height,
+                            (Math.random() - 0.5) * 0.7, 
+                            (Math.random() - 0.5) * 0.7
+                        ));
+                    }
+                }
+
+                function draw() {
+                    if (!ctx) return;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    for (let i = 0; i < particles.length; i++) {
+                        const p1 = particles[i];
+                        p1.x += p1.vx;
+                        p1.y += p1.vy;
+                        
+                        if (p1.x < 0 || p1.x > canvas.width) p1.vx *= -1;
+                        if (p1.y < 0 || p1.y > canvas.height) p1.vy *= -1;
+
+                        ctx.beginPath();
+                        ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = particleColor;
+                        ctx.fill();
+
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const p2 = particles[j];
+                            const dx = p1.x - p2.x;
+                            const dy = p1.y - p2.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            
+                            if (dist < 150) { 
+                                ctx.beginPath();
+                                ctx.moveTo(p1.x, p1.y);
+                                ctx.lineTo(p2.x, p2.y);
+                                ctx.strokeStyle = lineColor;
+                                ctx.lineWidth = 0.6; 
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                    animationFrameId = requestAnimationFrame(draw);
+                }
+                
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        if (canvas) {
+                             cancelAnimationFrame(animationFrameId); 
+                             initCanvas();
+                             initParticles(); 
+                             draw(); 
+                        }
+                    }, 250); 
+                });
+
+                initParticles(); 
+                draw();
+            } 
+
+            // --- LOGIC CURSOR ĐÃ CHUYỂN SANG cursor-trail.js ---
+
+
+            // --- MOBILE MENU LOGIC ---
+            const mobileMenuToggle = document.querySelector('.mobile-menu');
+            const navUl = document.querySelector('nav ul');
+            if (mobileMenuToggle && navUl) {
+                mobileMenuToggle.addEventListener('click', () => {
+                    const isMenuVisible = navUl.style.display === 'flex';
+                    
+                    if (isMenuVisible) {
+                        navUl.style.display = 'none'; 
+                    } else {
+                        navUl.style.display = 'flex'; 
+                        navUl.style.flexDirection = 'column';
+                        navUl.style.position = 'absolute';
+                        navUl.style.top = '70px'; 
+                        navUl.style.left = '0';
+                        navUl.style.width = '100%';
+                        navUl.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                        navUl.style.padding = '20px 0';
+                        navUl.style.boxShadow = '0 5px 15px rgba(0,0,0,0.05)';
+                        navUl.style.zIndex = '999';
+                        
+                         navUl.querySelectorAll('li').forEach(li => {
+                            li.style.textAlign = 'center';
+                            li.style.padding = '10px 0';
+                         });
+                    }
+                });
+
+                navUl.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 768 && navUl.style.display === 'flex') {
+                            navUl.style.display = 'none';
+                        }
+                    });
+                });
+
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768) {
+                        navUl.style.display = 'flex';
+                        navUl.style.flexDirection = 'row';
+                        navUl.style.position = 'static';
+                        navUl.style.backgroundColor = 'transparent';
+                        navUl.style.padding = '0';
+                        navUl.style.boxShadow = 'none';
+                        navUl.querySelectorAll('li').forEach(li => {
+                            li.style.textAlign = 'left'; 
+                            li.style.padding = '0';
+                         });
+                    } else {
+                         if (navUl.style.display === 'flex' && navUl.style.position === 'static') {
+                             navUl.style.display = 'none';
+                         }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
