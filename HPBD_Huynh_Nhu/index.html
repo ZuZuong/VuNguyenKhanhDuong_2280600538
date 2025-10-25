@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Sinh Nhật</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <div class="header">Happy Birthday Bé iu <span>❤️</span></div>
+    <div class="confetti" id="confetti"></div>
+    <div class="fireworks" id="fireworks"></div>
+    <div id="viewContainer"></div>
+
+    <script src="controllers/appController.js"></script>
+    <script>
+        const confettiContainer = document.getElementById('confetti');
+        for (let i = 0; i < 150; i++) {
+            const confetti = document.createElement('div');
+            confetti.style.width = `${Math.random() * 8 + 4}px`;
+            confetti.style.height = confetti.style.width;
+            confetti.style.left = `${Math.random() * 100}%`;
+            confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            confetti.style.animationDelay = `${Math.random() * 2}s`;
+            confettiContainer.appendChild(confetti);
+        }
+
+        const fireworksContainer = document.getElementById('fireworks');
+        for (let i = 0; i < 150; i++) {
+            const firework = document.createElement('div');
+            firework.style.width = `${Math.random() * 8 + 4}px`;
+            firework.style.height = firework.style.width;
+            firework.style.left = `${Math.random() * 100}%`;
+            firework.style.animationDuration = `${Math.random() * 2 + 1}s`;
+            firework.style.animationDelay = `${Math.random() * 2}s`;
+            fireworksContainer.appendChild(firework);
+        }
+
+        const app = new AppController();
+        app.init();
+    </script>
+</body>
+</html>
