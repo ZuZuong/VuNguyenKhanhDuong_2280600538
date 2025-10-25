@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hành Trình IT - Từ Con Số 0 Đến Sinh Viên Năm 4</title>
-    <!-- Font Awesome cho icon --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
             --primary-color: #f8f9fa; /* Nền trắng xám */
@@ -534,10 +534,7 @@
 </head>
 <body>
     <canvas id="tech-background"></canvas>
-    <!-- Vệt sáng sẽ được tạo bởi JS -->
-
-
-    <!-- Header --><header>
+    <header>
         <div class="container">
             <div class="header-content">
                 <a href="index.html" class="logo">My IT Journey Blog</a>
@@ -555,18 +552,19 @@
     </header>
 
     <main>
-        <!-- Hero Section --><section class="page-section hero" id="home">
+        <section class="page-section hero" id="home">
             <div class="container">
                 <div class="hero-content">
                     <h1>Hành Trình IT Từ Không Thích<br>Trở Thành Sinh Viên Năm 4</h1>
                     <p>Chia sẻ hành trình học tập, những kiến thức thu được và thử thách đã vượt qua trong suốt quá trình trở thành sinh viên Công Nghệ Thông Tin.</p>
-                    <p class="hero-subheading">Khám phá các chủ đề về JavaScript, React, Node.js, CTDL & GT, và hơn thế nữa.</p>
+                    
+                    <p class="hero-subheading">Khám phá các chủ đề về Lập trình Mạng, Java, JavaScript, Socket và các giao thức.</p>
                     <div class="hero-tech-icons">
                          <i class="fab fa-js-square"></i>
-                         <i class="fab fa-react"></i>
+                         <i class="fab fa-java"></i>
                          <i class="fab fa-node-js"></i>
-                         <i class="fas fa-database"></i>
-                         <i class="fas fa-brain"></i>
+                         <i class="fas fa-network-wired"></i>
+                         <i class="fas fa-layer-group"></i>
                     </div>
                     <a href="#blog" class="cta-button primary">Khám Phá Blog</a>
                     <a href="about.html" class="cta-button">Về Tác Giả</a>
@@ -574,15 +572,13 @@
             </div>
         </section>
 
-        <!-- =================================== --><!-- BÀI VIẾT NỔI BẬT (TRONG CONTAINER) --><!-- =================================== --><section class="page-section" id="featured-posts">
+        <section class="page-section" id="featured-posts">
             <div class="container">
                 <h2 class="section-title">Bài Viết Nổi Bật</h2>
                 <a href="blogs/post-1.html" class="featured-post-card">
-                    <!-- === THAY ĐỔI: Chèn icon vào đây === -->
                     <div class="featured-post-image">
                         <i class="fas fa-rocket"></i>
                     </div>
-                    <!-- === KẾT THÚC THAY ĐỔI === -->
                     <div class="featured-post-content">
                         <div class="featured-content-wrapper">
                             <div class="post-meta">
@@ -597,20 +593,20 @@
                 </a>
             </div>
         </section>
-        <!-- =================================== --><!-- KẾT THÚC PHẦN NỔI BẬT --><!-- =================================== --><!-- Blog Posts Section --><section class="page-section" id="blog">
+        <section class="page-section" id="blog">
             <div class="container">
                 <h2 class="section-title">Tất Cả Bài Viết</h2>
                 <div class="posts-grid" id="postsContainer">
-                    <!-- === CẬP NHẬT ẢNH THÀNH ICON (Giữ nguyên) === -->
                     
                      <a href="blogs/post-2.html" class="post-card">
-                         <div class="post-image"><i class="fas fa-laptop-code"></i></div>
+                         <div class="post-image"><i class="fas fa-layer-group"></i></div>
                          <div class="post-content">
-                             <div class="post-meta"><span class="post-date">22/10/2025</span><span class="post-category">Học tập</span></div>
-                             <h3 class="post-title">Phân Tích Cấu Trúc: Thách Thức Khi Tiếp Cận Lập Trình Nền Tảng</h3>
-                             <p class="post-excerpt">Thách thức thực sự không nằm ở cú pháp mà ở tư duy thuật toán và ngữ nghĩa...</p>
+                             <div class="post-meta"><span class="post-date">22/10/2025</span><span class="post-category">Mạng Căn Bản</span></div>
+                             <h3 class="post-title">Phân tích Mô hình OSI và TCP/IP: Các Tầng (Layer) Hoạt Động Thế Nào?</h3>
+                             <p class="post-excerpt">Phân tích chi tiết 7 tầng của mô hình OSI và so sánh với mô hình TCP/IP trong thực tế...</p>
                          </div>
                      </a>
+                     
                      <a href="blogs/post-3.html" class="post-card">
                          <div class="post-image"><i class="fas fa-globe-americas"></i></div>
                          <div class="post-content">
@@ -619,6 +615,7 @@
                              <p class="post-excerpt">Bài học về Minimum Viable Product (MVP) và hiện tượng "scope creep" qua dự án đầu tay...</p>
                          </div>
                      </a>
+                     
                       <a href="blogs/post-4.html" class="post-card">
                           <div class="post-image"><i class="fas fa-project-diagram"></i></div>
                           <div class="post-content">
@@ -627,6 +624,7 @@
                               <p class="post-excerpt">Big O Notation và case study so sánh hiệu năng giữa Array và HashMap...</p>
                           </div>
                       </a>
+                     
                      <a href="blogs/post-5.html" class="post-card">
                          <div class="post-image"><i class="fas fa-cubes"></i></div>
                          <div class="post-content">
@@ -635,22 +633,25 @@
                              <p class="post-excerpt">Phân tích 4 trụ cột: Đóng gói, Kế thừa, Đa hình, Trừu tượng và ví dụ thực tế...</p>
                          </div>
                      </a>
+                     
                      <a href="blogs/post-6.html" class="post-card">
-                         <div class="post-image"><i class="fas fa-database"></i></div>
+                         <div class="post-image"><i class="fas fa-network-wired"></i></div>
                          <div class="post-content">
-                             <div class="post-meta"><span class="post-date">05/11/2025</span><span class="post-category">Database</span></div>
-                             <h3 class="post-title">Kiến Trúc Dữ Liệu: SQL & Cơ Sở Dữ Liệu Quan Hệ</h3>
-                             <p class="post-excerpt">Schema Design, Normalization, sức mạnh của JOINs và nguyên tắc ACID...</p>
+                             <div class="post-meta"><span class="post-date">05/11/2025</span><span class="post-category">Lập trình Mạng</span></div>
+                             <h3 class="post-title">Socket Programming 101: Xây dựng Chat Client-Server với Java/Node.js</h3>
+                             <p class="post-excerpt">Hướng dẫn từng bước thiết lập kết nối socket, gửi và nhận dữ liệu thời gian thực...</p>
                          </div>
                      </a>
+                     
                      <a href="blogs/post-7.html" class="post-card">
-                         <div class="post-image"><i class="fab fa-git-alt"></i></div>
+                         <div class="post-image"><i class="fas fa-exchange-alt"></i></div>
                          <div class="post-content">
-                             <div class="post-meta"><span class="post-date">08/11/2025</span><span class="post-category">Công cụ</span></div>
-                             <h3 class="post-title">Làm Việc Cộng Tác Hiệu Quả: Git Dưới Góc Nhìn Quản Lý Dự Án</h3>
-                             <p class="post-excerpt">Branching strategy (Git Flow, GitHub Flow), Pull Requests và giải quyết xung đột...</p>
+                             <div class="post-meta"><span class="post-date">08/11/2025</span><span class="post-category">Giao thức</span></div>
+                             <h3 class="post-title">Các Giao thức Mạng Phổ biến: Phân tích HTTP/HTTPS và TCP/UDP</h3>
+                             <p class="post-excerpt">Sự khác biệt cốt lõi giữa TCP và UDP, và cách HTTPS bảo mật kết nối web...</p>
                          </div>
                      </a>
+                     
                      <a href="blogs/post-8.html" class="post-card">
                          <div class="post-image"><i class="fab fa-js-square"></i></div>
                          <div class="post-content">
@@ -659,6 +660,7 @@
                              <p class="post-excerpt">Phân tích sự tiến hóa của các mô hình xử lý bất đồng bộ trong JS: Callbacks, Promises, Async/Await...</p>
                          </div>
                      </a>
+                     
                      <a href="blogs/post-9.html" class="post-card">
                          <div class="post-image"><i class="fab fa-react"></i></div>
                          <div class="post-content">
@@ -667,20 +669,21 @@
                              <p class="post-excerpt">Kiến trúc Component-based, State vs Props, và cơ chế Reconciliation của Virtual DOM...</p>
                          </div>
                      </a>
+                     
                      <a href="blogs/post-10.html" class="post-card">
-                         <div class="post-image"><i class="fas fa-brain"></i></div>
+                         <div class="post-image"><i class="fas fa-sitemap"></i></div>
                          <div class="post-content">
-                             <div class="post-meta"><span class="post-date">15/11/2025</span><span class="post-category">AI/ML</span></div>
-                             <h3 class="post-title">Một Góc Nhìn Tổng Quan: Các Khái Niệm Cốt Lõi Của Học Máy</h3>
-                             <p class="post-excerpt">Supervised, Unsupervised, Reinforcement Learning và quy trình xây dựng mô hình ML cơ bản...</p>
+                             <div class="post-meta"><span class="post-date">15/11/2025</span><span class="post-category">CCNA</span></div>
+                             <h3 class="post-title">Từ Lý Thuyết CCNA đến Code: Áp dụng Subnetting vào Thiết kế Hệ thống</h3>
+                             <p class="post-excerpt">Cách kiến thức chia mạng con (subnetting) ảnh hưởng đến thiết kế bảo mật và lập trình hệ thống...</p>
                          </div>
                      </a>
-                    <!-- === KẾT THÚC CẬP NHẬT ẢNH === -->
+
                 </div>
             </div>
         </section>
 
-        <!-- Phần "Về Tôi" đã bị xóa khỏi đây --><!-- Contact Section --><section class="page-section" id="contact">
+        <section class="page-section" id="contact">
             <div class="container">
                 <h2 class="section-title">Liên Hệ</h2>
                 <<form class="contact-form" 
@@ -709,7 +712,7 @@
         </section>
     </main>
 
-    <!-- Footer --><footer>
+    <footer>
         <div class="container">
             <div class="copyright">
                 &copy; 2025 IT Journey Blog. Được tạo với ❤️ và nhiều ☕
@@ -717,7 +720,6 @@
         </div>
     </footer>
 
-    <!-- === LIÊN KẾT ĐẾN FILE JS MỚI === -->
     <script src="cursor-trail.js"></script> 
     
     <script>
@@ -888,4 +890,3 @@
     </script>
 </body>
 </html>
-

@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Đã cập nhật tiêu đề -->
-    <title>Kiến Trúc Dữ Liệu: SQL & Cơ Sở Dữ Liệu Quan Hệ</title>
+    <title>Socket Programming 101: Xây dựng Chat Client-Server với Java/Node.js</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         /* Toàn bộ CSS từ post-1.html được sao chép vào đây */
@@ -207,7 +206,6 @@
 </head>
 <body>
     <canvas id="tech-background"></canvas>
-    <!-- Header (KHÔNG THAY ĐỔI) -->
     <header>
         <div class="container">
             <div class="header-content">
@@ -226,71 +224,161 @@
     </header>
 
     <main>
-         <!-- Nội dung bài viết chi tiết -->
-        <div class="post-page-container">
-            <!-- === BẮT ĐẦU NỘI DUNG THAY THẾ CHO POST 6 === -->
-            
-            <h1 class="post-page-title">Kiến Trúc Dữ Liệu: Tìm Hiểu Chuyên Sâu về SQL và Cơ Sở Dữ Liệu Quan Hệ</h1>
+         <div class="post-page-container">
+            <h1 class="post-page-title">Socket Programming 101: Xây dựng Chat Client-Server với Java/Node.js</h1>
             
             <div class="post-page-content">
                 <div class="post-meta">
                     <span class="post-date"><i class="fas fa-calendar-alt"></i> Ngày đăng: 05/11/2025</span>
-                    
-                    <span class="post-category">Database</span>
+                    <span class="post-category">Lập trình Mạng</span>
                 </div>
                 
                 <div class="post-full-content">
-                    <p>Trong mọi ứng dụng phần mềm, dữ liệu đóng vai trò trung tâm. Cơ sở dữ liệu quan hệ (Relational Databases - RDBMS), cùng với Ngôn ngữ Truy vấn Có cấu trúc (Structured Query Language - SQL), đã và đang là trụ cột trong việc lưu trữ, quản lý và truy xuất dữ liệu một cách hiệu quả và đáng tin cậy trong suốt nhiều thập kỷ. Bài viết này sẽ phân tích các khái niệm cốt lõi làm nên sức mạnh của mô hình này.</p>
+                    <p>Nếu bạn muốn hiểu cách các ứng dụng thời gian thực như game online, ứng dụng chat, hay streaming hoạt động, bạn phải bắt đầu từ **Socket**. Socket là nền tảng cơ bản của hầu hết mọi giao tiếp mạng. Bài viết này sẽ hướng dẫn các khái niệm cơ bản và cách xây dựng một ứng dụng chat client-server đơn giản.</p>
 
-                    <h2>Thiết Kế Lược Đồ (Schema Design) và Chuẩn Hóa (Normalization)</h2>
-                    <p>Nền tảng của RDBMS là cấu trúc. Trước khi lưu trữ, chúng ta phải định nghĩa "lược đồ" (schema) - bản thiết kế chi tiết bao gồm các bảng (tables), các cột (columns) với kiểu dữ liệu xác định (data types), các ràng buộc (constraints - ví dụ: NOT NULL, UNIQUE), khóa chính (Primary Key - PK) và khóa ngoại (Foreign Key - FK) để thiết lập mối quan hệ.</p>
-                    <p><strong>Chuẩn hóa (Normalization)</strong> là một tập hợp các quy tắc (ví dụ: 1NF, 2NF, 3NF) nhằm mục đích:</p>
+                    <h2>Socket Là Gì?</h2>
+                    <p>Một socket là một **điểm cuối (endpoint)** của một liên kết giao tiếp hai chiều giữa hai chương trình chạy trên mạng. Một socket được ràng buộc (bind) với một số cổng (port) tại một địa chỉ IP cụ thể. Nói một cách đơn giản, nếu địa chỉ IP là tòa nhà của bạn, thì số cổng là số căn hộ của bạn.</p>
+                    <p>Chúng ta chủ yếu làm việc với <strong>TCP Sockets</strong>, loại socket sử dụng giao thức TCP (Tầng Vận chuyển) để đảm bảo kết nối tin cậy, có thứ tự và kiểm soát lỗi. Điều này hoàn hảo cho ứng dụng chat, nơi chúng ta không muốn tin nhắn bị mất hoặc đến sai thứ tự.</p>
+
+                    <h2>Kiến Trúc Client-Server</h2>
+                    <p>Ứng dụng của chúng ta sẽ có hai phần:</p>
                     <ul>
-                        <li><strong>Giảm thiểu sự dư thừa dữ liệu (Data Redundancy):</strong> Tránh lưu trữ cùng một thông tin ở nhiều nơi.</li>
-                        <li><strong>Đảm bảo tính nhất quán dữ liệu (Data Consistency):</strong> Khi cập nhật thông tin, chỉ cần sửa ở một nơi duy nhất.</li>
-                        <li><strong>Cải thiện tính toàn vẹn dữ liệu (Data Integrity):</strong> Ngăn chặn các bất thường khi thêm, sửa, xóa dữ liệu (update/insert/delete anomalies).</li>
+                        <li><strong>Server (Máy chủ):</strong> Một chương trình chạy liên tục, lắng nghe trên một cổng cụ thể. Nó chấp nhận kết nối từ nhiều client và điều phối tin nhắn giữa họ.</li>
+                        <li><strong>Client (Máy khách):</strong> Một chương trình kết nối đến địa chỉ IP và cổng của server. Nó gửi tin nhắn đến server và nhận tin nhắn từ server.</li>
                     </ul>
-                    <p>Ví dụ, thay vì lưu `author_name` và `author_email` trong bảng `Posts`, chúng ta tạo bảng <code>Authors</code> (với PK là `author_id`) và bảng <code>Posts</code> (với FK là `author_id` tham chiếu đến bảng <code>Authors</code>). Điều này tuân thủ các dạng chuẩn hóa cơ bản.</p>
 
-                    <img src="../images/post/unnamed 5.jpg" alt="Sơ đồ ERD minh họa quan hệ Posts và Authors">
+                    
 
-                    <h2>Sức Mạnh Của JOINs và Các Loại Quan Hệ</h2>
-                    <p>Việc chuẩn hóa dữ liệu đồng nghĩa với việc thông tin bị phân mảnh ra nhiều bảng. <code>JOIN</code> là cơ chế mạnh mẽ của SQL cho phép kết hợp dữ liệu từ hai hay nhiều bảng dựa trên các cột liên quan (thường là PK-FK).</p>
-                    <ul>
-                        <li><strong>INNER JOIN:</strong> Trả về các hàng khi có sự trùng khớp ở cả hai bảng.</li>
-                        <li><strong>LEFT JOIN (hoặc LEFT OUTER JOIN):</strong> Trả về tất cả các hàng từ bảng bên trái và các hàng trùng khớp từ bảng bên phải (nếu không khớp, cột bảng phải sẽ là NULL).</li>
-                        <li><strong>RIGHT JOIN (hoặc RIGHT OUTER JOIN):</strong> Tương tự LEFT JOIN nhưng ưu tiên bảng bên phải.</li>
-                        <li><strong>FULL OUTER JOIN:</strong> Trả về tất cả các hàng từ cả hai bảng, điền NULL nếu không có sự trùng khớp.</li>
-                    </ul>
-                    <pre><code class="language-sql">-- Lấy tiêu đề bài viết và tên tác giả (chỉ những bài có tác giả tồn tại)
-SELECT 
-    p.title, 
-    a.name
-FROM 
-    Posts p -- Alias 'p' cho bảng Posts
-INNER JOIN 
-    Authors a -- Alias 'a' cho bảng Authors
-ON 
-    p.author_id = a.author_id; -- Điều kiện kết nối</code></pre>
+                    <h2>Ví dụ với Java (java.net)</h2>
+                    <p>Java cung cấp các lớp <code>ServerSocket</code> cho máy chủ và <code>Socket</code> cho máy khách.</p>
+                    
+                    <h3>Code Phía Server (Java - Đơn giản)</h3>
+                    <p>Server này chỉ chấp nhận một client và lặp lại tin nhắn của client đó.</p>
+                    <pre><code class="language-java">// Server.java
+import java.io.*;
+import java.net.*;
 
-                    <h2>ACID: Đảm Bảo Tính Toàn Vẹn Giao Dịch</h2>
-                    <p>Đặc tính nổi bật của RDBMS, đặc biệt quan trọng cho các hệ thống như ngân hàng, thương mại điện tử, là việc tuân thủ các thuộc tính ACID cho các "giao dịch" (transactions - một hoặc nhiều thao tác được coi là một đơn vị công việc):</p>
-                    <ul>
-                        <li><strong>Atomicity (Tính nguyên tử):</strong> Giao dịch phải thành công hoàn toàn (commit) hoặc thất bại hoàn toàn (rollback). Không có trạng thái lửng lơ.</li>
-                        <li><strong>Consistency (Tính nhất quán):</strong> Dữ liệu phải luôn tuân thủ các ràng buộc đã định nghĩa, duy trì trạng thái hợp lệ trước và sau giao dịch.</li>
-                        <li><strong>Isolation (Tính cô lập):</strong> Các giao dịch diễn ra đồng thời không được ảnh hưởng lẫn nhau, như thể chúng diễn ra tuần tự. Các mức độ cô lập (isolation levels) khác nhau cung cấp sự cân bằng giữa hiệu năng và tính nhất quán.</li>
-                        <li><strong>Durability (Tính bền vững):</strong> Một khi giao dịch đã được commit, kết quả của nó phải được lưu trữ vĩnh viễn và không bị mất ngay cả khi hệ thống gặp sự cố (như mất điện).</li>
-                    </ul>
+public class SimpleServer {
+    public static void main(String[] args) throws IOException {
+        int port = 6789;
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            System.out.println("Server đang lắng nghe trên cổng " + port);
+            
+            // Chờ một client kết nối
+            Socket clientSocket = serverSocket.accept(); 
+            System.out.println("Client đã kết nối!");
+
+            // Lấy luồng vào/ra
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println("Client nói: " + inputLine);
+                out.println("Server nhận được: " + inputLine); // Gửi phản hồi
+            }
+        }
+    }
+}</code></pre>
+
+                    <h3>Code Phía Client (Java)</h3>
+                    <pre><code class="language-java">// Client.java
+import java.io.*;
+import java.net.*;
+
+public class SimpleClient {
+    public static void main(String[] args) throws IOException {
+        String hostName = "127.0.0.1"; // Địa chỉ server (localhost)
+        int port = 6789;
+
+        try (
+            Socket socket = new Socket(hostName, port);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))
+        ) {
+            String userInput;
+            System.out.println("Nhập tin nhắn (hoặc 'exit' để thoát):");
+            while ((userInput = stdIn.readLine()) != null && !userInput.equals("exit")) {
+                out.println(userInput); // Gửi tin nhắn đến server
+                System.out.println("Server phản hồi: " + in.readLine()); // Đọc phản hồi
+            }
+        }
+    }
+}</code></pre>
+
+                    <h2>Ví dụ với Node.js (Module 'net')</h2>
+                    <p>Node.js sử dụng mô hình bất đồng bộ, xử lý nhiều kết nối hiệu quả mà không cần đa luồng (multi-threading) phức tạp.</p>
+
+                    <h3>Code Phía Server (Node.js)</h3>
+                    <pre><code class="language-javascript">// server.js
+const net = require('net');
+const port = 6789;
+
+const server = net.createServer((socket) => {
+    console.log('Client đã kết nối!');
+    
+    // Gửi tin nhắn chào mừng
+    socket.write('Chào mừng đến với chat server!\n');
+
+    // Xử lý dữ liệu từ client
+    socket.on('data', (data) => {
+        console.log(`Client nói: ${data.toString().trim()}`);
+        // Phản hồi lại client
+        socket.write(`Server nhận được: ${data.toString()}`);
+    });
+
+    // Xử lý khi client ngắt kết nối
+    socket.on('end', () => {
+        console.log('Client đã ngắt kết nối.');
+    });
+
+    socket.on('error', (err) => {
+        console.error('Lỗi socket:', err.message);
+    });
+});
+
+server.listen(port, () => {
+    console.log(`Server đang lắng nghe trên cổng ${port}`);
+});</code></pre>
+                    
+                    <h3>Code Phía Client (Node.js)</h3>
+                    <pre><code class="language-javascript">// client.js
+const net = require('net');
+const host = '127.0.0.1';
+const port = 6789;
+
+const client = net.createConnection({ host, port }, () => {
+    console.log('Đã kết nối đến server!');
+    console.log('Nhập tin nhắn (hoặc "exit" để thoát):');
+});
+
+// Đọc dữ liệu từ server
+client.on('data', (data) => {
+    console.log(data.toString());
+});
+
+// Đọc input từ terminal và gửi đến server
+process.stdin.on('data', (input) => {
+    const message = input.toString().trim();
+    if (message === 'exit') {
+        client.end();
+        process.exit();
+    }
+    client.write(message + '\n');
+});
+
+client.on('end', () => {
+    console.log('Đã ngắt kết nối khỏi server.');
+});</code></pre>
 
                     <h2>Kết Luận</h2>
-                    <p>Mặc dù sự trỗi dậy của NoSQL databases mang lại sự linh hoạt cho một số loại ứng dụng, CSDL quan hệ và SQL vẫn là nền tảng không thể thay thế cho các hệ thống đòi hỏi cấu trúc dữ liệu chặt chẽ, tính toàn vẹn cao, và khả năng thực hiện các truy vấn phức tạp, phân tích dữ liệu đa chiều. Hiểu sâu về thiết kế lược đồ, chuẩn hóa, các loại JOIN và nguyên tắc ACID là kỹ năng cốt lõi của mọi kỹ sư phần mềm làm việc với dữ liệu.</p>
+                    <p>Socket programming là một kỹ năng cơ bản nhưng cực kỳ mạnh mẽ. Từ ví dụ đơn giản này, bạn có thể mở rộng để xử lý nhiều client cùng lúc (bằng cách tạo thread mới cho mỗi client trong Java, hoặc quản lý mảng socket trong Node.js) để xây dựng một phòng chat hoàn chỉnh. Hiểu được cách dữ liệu di chuyển ở tầng này là chìa khóa để làm chủ lập trình mạng.</p>
                 </div>
             </div>
-            <!-- === KẾT THÚC NỘI DUNG THAY THẾ CHO POST 6 === -->
-        </div>
+            </div>
     </main>
 
-    <!-- Footer (KHÔNG THAY ĐỔI) -->
     <footer>
         <div class="container">
             <div class="copyright">
@@ -299,7 +387,6 @@ ON
         </div>
     </footer>
 
-    <!-- JavaScript (KHÔNG THAY ĐỔI) -->
     <script>
         // --- HIỆU ỨNG NỀN MẠCH ĐIỆN TỬ ---
         document.addEventListener('DOMContentLoaded', () => {
@@ -362,4 +449,3 @@ ON
     <script src="../cursor-trail.js"></script>
 </body>
 </html>
-

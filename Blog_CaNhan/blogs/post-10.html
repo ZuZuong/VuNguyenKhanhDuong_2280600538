@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Đã cập nhật tiêu đề -->
-    <title>Một Góc Nhìn Tổng Quan: Các Khái Niệm Cốt Lõi Của Học Máy</title>
+    <title>Từ Lý Thuyết CCNA đến Code: Áp dụng Subnetting vào Thiết kế Hệ thống</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         /* Toàn bộ CSS từ post-1.html được sao chép vào đây */
@@ -207,7 +206,6 @@
 </head>
 <body>
     <canvas id="tech-background"></canvas>
-    <!-- Header (KHÔNG THAY ĐỔI) -->
     <header>
         <div class="container">
             <div class="header-content">
@@ -226,70 +224,72 @@
     </header>
 
     <main>
-         <!-- Nội dung bài viết chi tiết -->
-        <div class="post-page-container">
-            <!-- === BẮT ĐẦU NỘI DUNG THAY THẾ CHO POST 10 === -->
-            
-            <h1 class="post-page-title">Một Góc Nhìn Tổng Quan: Các Khái Niệm Cốt Lõi Của Học Máy (Machine Learning)</h1>
+         <div class="post-page-container">
+            <h1 class="post-page-title">Từ Lý Thuyết CCNA đến Code: Áp dụng Subnetting vào Thiết kế Hệ thống</h1>
             
             <div class="post-page-content">
                 <div class="post-meta">
                     <span class="post-date"><i class="fas fa-calendar-alt"></i> Ngày đăng: 15/11/2025</span>
-                    
-                    <span class="post-category">AI/ML</span>
+                    <span class="post-category">CCNA</span>
                 </div>
                 
                 <div class="post-full-content">
-                    <p>Học máy (Machine Learning - ML), một phân ngành cốt lõi của Trí tuệ nhân tạo (AI), đang cách mạng hóa cách chúng ta tương tác với công nghệ. Khác với lập trình truyền thống dựa trên các quy tắc tường minh (explicit rules), ML tập trung vào việc xây dựng các hệ thống có khả năng "học" từ dữ liệu (data-driven) để tự động nhận dạng các mẫu (patterns), đưa ra dự đoán (predictions) hoặc quyết định (decisions).</p>
+                    <p>Khi học CCNA, nhiều sinh viên (trong đó có tôi) thường tự hỏi: "Tại sao mình là lập trình viên mà phải học chia subnet (subnetting)?" Chúng ta thường nghĩ đó là việc của kỹ sư mạng. Tuy nhiên, khi bắt đầu thiết kế các hệ thống phức tạp, đặc biệt là trên nền tảng đám mây (Cloud), tôi nhận ra rằng kiến thức về mạng, đặc biệt là subnetting, là một kỹ năng vô giá để xây dựng các ứng dụng an toàn, hiệu quả và có tổ chức.</p>
 
-                    <h2>Các Mô Hình Học Tập (Learning Paradigms) Chính</h2>
-                    <p>Lĩnh vực ML rất rộng lớn, nhưng có thể phân loại thành ba mô hình học tập chính dựa trên bản chất của dữ liệu và phương pháp học:</p>
+                    <h2>Ôn Lại Nhanh: Subnetting là gì?</h2>
+                    <p>Subnetting (chia mạng con) là kỹ thuật chia một mạng IP lớn thành nhiều mạng con (sub-networks) nhỏ hơn. Thay vì có một mạng khổng lồ với hàng ngàn thiết bị, chúng ta chia nó ra thành các "khu phố" nhỏ hơn, mỗi khu phố có một mục đích riêng.</p>
+                    <blockquote>
+                        Ví dụ: Mạng <code>192.168.0.0/24</code> có thể được chia thành hai mạng con <code>192.168.0.0/25</code> (cho phòng Kế toán) và <code>192.168.0.128/25</code> (cho phòng Kỹ thuật).
+                    </blockquote>
 
-                    <h3>1. Học Có Giám Sát (Supervised Learning)</h3>
-                    <p>Đây là mô hình phổ biến và dễ tiếp cận nhất. Trong học có giám sát, chúng ta cung cấp cho thuật toán một tập dữ liệu huấn luyện (training dataset) đã được "gắn nhãn" (labeled data). Mỗi điểm dữ liệu bao gồm một tập các đặc trưng đầu vào (input features) và một kết quả đầu ra (output label) mong muốn. Mục tiêu của mô hình là học một hàm ánh xạ (mapping function) <code>f(X) -> Y</code>, sao cho với một đầu vào <code>X</code> mới, nó có thể dự đoán chính xác đầu ra <code>Y</code>.</p>
+                    <h2>Tại Sao Lập Trình Viên Cần Quan Tâm?</h2>
+                    <p>Trong lập trình hiện đại, chúng ta không chỉ viết code. Chúng ta thiết kế hệ thống. Kiến thức về subnetting ảnh hưởng trực tiếp đến ba khía cạnh quan trọng của thiết kế hệ thống:</p>
+
+                    <h3>1. Bảo Mật (Security)</h3>
+                    <p>Đây là lý do quan trọng nhất. Chúng ta không bao giờ nên đặt cơ sở dữ liệu (database) và máy chủ web (web server) trong cùng một mạng. Bằng cách sử dụng subnet, chúng ta có thể tạo ra các "vùng" an ninh riêng biệt:</p>
                     <ul>
-                        <li><strong>Bài toán Phân loại (Classification):</strong> Dự đoán một nhãn rời rạc, thuộc một tập hợp các lớp xác định. Ví dụ: Phân loại email là "Spam" hay "Không phải Spam", nhận dạng chữ viết tay (0-9), chẩn đoán bệnh (Có/Không). Các thuật toán phổ biến: Logistic Regression, Support Vector Machines (SVM), Naive Bayes, Decision Trees, Random Forests.</li>
-                        <li><strong>Bài toán Hồi quy (Regression):</strong> Dự đoán một giá trị liên tục. Ví dụ: Dự đoán giá nhà dựa trên diện tích, số phòng ngủ; dự báo doanh số bán hàng; ước tính nhiệt độ. Các thuật toán phổ biến: Linear Regression, Polynomial Regression, Ridge/Lasso Regression, SVR.</li>
+                        <li><strong>Public Subnet:</strong> Chỉ chứa các tài nguyên cần truy cập trực tiếp từ Internet, ví dụ như Load Balancer (bộ cân bằng tải) hoặc Web Server.</li>
+                        <li><strong>Private Subnet:</strong> Chứa các tài nguyên nhạy cảm như Application Server hoặc Database. Các tài nguyên này không thể bị truy cập trực tiếp từ Internet.</li>
                     </ul>
-                    <img src="../images/post/unnamed 11.jpg" alt="Biểu đồ Hồi quy tuyến tính">
+                    <p>Chúng ta dùng các quy tắc (Network Access Control Lists - ACLs hoặc Security Groups trên Cloud) để kiểm soát luồng truy cập. Ví dụ: "Chỉ cho phép Public Subnet nói chuyện với Private Subnet qua cổng 8080, và cấm mọi truy cập khác".</p>
+                    
+                    
 
-                    <h3>2. Học Không Giám Sát (Unsupervised Learning)</h3>
-                    <p>Trong mô hình này, chúng ta chỉ cung cấp dữ liệu đầu vào mà không có bất kỳ nhãn nào đi kèm (unlabeled data). Nhiệm vụ của thuật toán là tự khám phá cấu trúc, các mẫu hoặc các mối quan hệ tiềm ẩn trong dữ liệu.</p>
-                    <ul>
-                        <li><strong>Bài toán Phân cụm (Clustering):</strong> Tự động nhóm các điểm dữ liệu tương tự nhau thành các cụm (clusters). Ví dụ: Phân nhóm khách hàng dựa trên hành vi mua sắm để marketing mục tiêu, phân loại các bài báo theo chủ đề. Thuật toán phổ biến: K-Means, DBSCAN, Hierarchical Clustering.</li>
-                        <li><strong>Bài toán Giảm chiều dữ liệu (Dimensionality Reduction):</strong> Giảm số lượng đặc trưng (features/dimensions) của dữ liệu mà vẫn giữ được tối đa thông tin quan trọng. Hữu ích cho việc trực quan hóa dữ liệu đa chiều hoặc cải thiện hiệu suất của các thuật toán khác. Thuật toán phổ biến: Principal Component Analysis (PCA), t-Distributed Stochastic Neighbor Embedding (t-SNE).</li>
-                        <li><strong>Phát hiện Bất thường (Anomaly Detection):</strong> Xác định các điểm dữ liệu khác biệt đáng kể so với phần còn lại. Ví dụ: Phát hiện giao dịch gian lận, giám sát lỗi hệ thống.</li>
-                    </ul>
-                     <img src="../images/post/unnamed 10.jpg" alt="Biểu đồ Phân cụm K-Means">
+                    <h3>2. Tổ Chức và Quản Lý (Organization)</h3>
+                    <p>Subnet giúp tổ chức các tài nguyên một cách logic. Khi bạn nhìn vào một dải IP, bạn biết ngay nó thuộc về môi trường nào (Development, Staging, hay Production) hoặc chức năng gì (Database, Logging, Application). Điều này giúp việc quản lý và gỡ lỗi dễ dàng hơn rất nhiều.</p>
 
-                    <h3>3. Học Tăng Cường (Reinforcement Learning - RL)</h3>
-                    <p>Đây là một mô hình học tập khác biệt, lấy cảm hứng từ tâm lý học hành vi. Một "tác tử" (agent) tương tác với một "môi trường" (environment) bằng cách thực hiện các "hành động" (actions). Sau mỗi hành động, agent nhận được một "phần thưởng" (reward) hoặc "hình phạt" (penalty) và quan sát trạng thái mới của môi trường. Mục tiêu của agent là học một "chính sách" (policy) - chiến lược chọn hành động tối ưu trong từng trạng thái - để tối đa hóa tổng phần thưởng tích lũy theo thời gian thông qua quá trình thử và sai (trial and error).</p>
-                    <p>Ứng dụng phổ biến: Huấn luyện AI chơi game (AlphaGo), điều khiển robot tự hành, tối ưu hóa hệ thống gợi ý (recommendation systems).</p>
+                    <h3>3. Hiệu Năng (Performance)</h3>
+                    <p>Trong các mạng cũ, việc chia subnet giúp giảm lưu lượng broadcast. Mặc dù trong môi trường Cloud hiện đại điều này ít quan trọng hơn, việc phân chia tài nguyên hợp lý vẫn giúp tối ưu hóa luồng dữ liệu, ví dụ như đặt các server hay giao tiếp nhiều gần nhau (trong cùng Availability Zone) để giảm độ trễ.</p>
 
-                    <h2>Quy Trình Xây Dựng Mô Hình ML Cơ Bản</h2>
-                    <p>Việc xây dựng một mô hình ML không chỉ đơn thuần là chọn và chạy một thuật toán. Đó là một quy trình khoa học dữ liệu phức tạp và lặp đi lặp lại:</p>
-                    <ol>
-                        <li><strong>Thu thập Dữ liệu (Data Collection):</strong> Tìm kiếm và tập hợp dữ liệu thô từ nhiều nguồn.</li>
-                        <li><strong>Tiền xử lý và Làm sạch Dữ liệu (Data Preprocessing & Cleaning):</strong> Xử lý dữ liệu thiếu (missing values), dữ liệu nhiễu (noisy data), chuẩn hóa (scaling/normalization), mã hóa biến phân loại (categorical encoding). Đây thường là bước tốn nhiều thời gian nhất.</li>
-                        <li><strong>Phân tích Khám phá Dữ liệu (Exploratory Data Analysis - EDA):</strong> Trực quan hóa và phân tích dữ liệu để hiểu rõ hơn về các đặc trưng, mối quan hệ và phát hiện các mẫu tiềm ẩn.</li>
-                        <li><strong>Trích xuất Đặc trưng (Feature Engineering):</strong> Tạo ra các đặc trưng mới hoặc lựa chọn các đặc trưng quan trọng nhất từ dữ liệu thô để cải thiện hiệu suất mô hình.</li>
-                        <li><strong>Lựa chọn Mô hình (Model Selection):</strong> Dựa trên bài toán (classification/regression/clustering) và đặc điểm dữ liệu để chọn các thuật toán tiềm năng.</li>
-                        <li><strong>Huấn luyện Mô hình (Model Training):</strong> Sử dụng tập dữ liệu huấn luyện (Training Set) để "dạy" mô hình học các mẫu. Dữ liệu thường được chia thành Training Set, Validation Set (để tinh chỉnh siêu tham số) và Test Set (để đánh giá cuối cùng).</li>
-                        <li><strong>Đánh giá Mô hình (Model Evaluation):</strong> Sử dụng các chỉ số đo lường (metrics) phù hợp (Accuracy, Precision, Recall, F1-Score, AUC-ROC cho Classification; MSE, MAE, R² cho Regression) để đánh giá hiệu suất của mô hình trên tập dữ liệu kiểm thử (Test Set) mà mô hình chưa từng thấy trước đó.</li>
-                        <li><strong>Tinh chỉnh Siêu tham số (Hyperparameter Tuning):</strong> Tối ưu hóa các tham số cấu hình của thuật toán (ví dụ: learning rate, số lượng cây trong Random Forest) để đạt hiệu suất tốt nhất trên Validation Set.</li>
-                        <li><strong>Triển khai (Deployment):</strong> Đưa mô hình đã được huấn luyện và đánh giá vào môi trường thực tế để đưa ra dự đoán hoặc quyết định trên dữ liệu mới.</li>
-                        <li><strong>Giám sát và Bảo trì (Monitoring & Maintenance):</strong> Theo dõi hiệu suất của mô hình theo thời gian và huấn luyện lại (retrain) khi cần thiết do sự thay đổi của dữ liệu (data drift).</li>
-                    </ol>
+                    <h2>Ví dụ trong "Code" (Dưới dạng Infrastructure as Code - IaC)</h2>
+                    <p>Ngày nay, chúng ta định nghĩa hạ tầng bằng code (IaC) sử dụng các công cụ như Terraform hoặc AWS CloudFormation. Kiến thức subnetting của bạn sẽ được thể hiện trực tiếp ở đây.</p>
+                    <p>Đây là một ví dụ đơn giản về cách định nghĩa một mạng (VPC) với hai subnet bằng Terraform:</p>
+                    <pre><code class="language-hcl"># Định nghĩa mạng chính (VPC)
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16" # Một mạng lớn
+}
+
+# Định nghĩa Public Subnet cho Web Server
+resource "aws_subnet" "public" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.1.0/24" # Một phần nhỏ của mạng /16
+  map_public_ip_on_launch = true # Tự động cấp IP public
+}
+
+# Định nghĩa Private Subnet cho Database
+resource "aws_subnet" "private" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.2.0/24" # Một phần nhỏ khác
+  map_public_ip_on_launch = false # Không cấp IP public
+}</code></pre>
 
                     <h2>Kết Luận</h2>
-                    <p>Học máy là một lĩnh vực giao thoa giữa khoa học máy tính, thống kê và toán học, mở ra vô vàn khả năng ứng dụng. Mặc dù các thuật toán và kỹ thuật có thể phức tạp, việc nắm vững các khái niệm cốt lõi về các mô hình học tập và quy trình xây dựng mô hình là bước đầu tiên quan trọng để có thể khám phá và đóng góp vào lĩnh vực đầy tiềm năng này.</p>
+                    <p>Lý thuyết CCNA, đặc biệt là subnetting, không hề xa rời thực tế lập trình. Nó là cầu nối quan trọng giữa phần mềm (code của bạn) và phần cứng (hạ tầng mạng). Một lập trình viên hiểu cách thiết kế mạng sẽ xây dựng được các hệ thống không chỉ chạy đúng, mà còn chạy an toàn, có khả năng mở rộng và dễ quản lý.</p>
                 </div>
             </div>
-            <!-- === KẾT THÚC NỘI DUNG THAY THẾ CHO POST 10 === -->
-        </div>
+            </div>
     </main>
 
-    <!-- Footer (KHÔNG THAY ĐỔI) -->
     <footer>
         <div class="container">
             <div class="copyright">
@@ -298,7 +298,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript (KHÔNG THAY ĐỔI) -->
     <script>
         // --- HIỆU ỨNG NỀN MẠCH ĐIỆN TỬ ---
         document.addEventListener('DOMContentLoaded', () => {
@@ -361,4 +360,3 @@
     <script src="../cursor-trail.js"></script>
 </body>
 </html>
-
